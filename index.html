@@ -1,0 +1,217 @@
+
+<html>
+<head>
+    <title>Chiếc nón kỳ diệu</title>
+    <link rel="stylesheet" href="public/css/main.css">
+    <link rel="stylesheet" href="public/css/bootstrap.min.css">
+    <script type="text/javascript" src="public/js/Winwheel.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    
+</head>
+<body>
+    <div>
+        <div class="left col-sm-4">
+            <br>
+            <br>
+            <h1 class="btn btn-info" align="center">Luật chơi</h1>
+            <div class="content">
+                <p >Chiếc nón kỳ diệu là một trò chơi truyền hình (game show) của kênh VTV3 - Đài Truyền hình Việt Nam phối hợp cùng Viet Ba Media thực hiện, được mua bản quyền dựa trên trò chơi Wheel of Fortune (Vòng quay may mắn)</p>
+                <p>
+                  Bắt đầu trò chơi bằng việc quay chiếc nón để có thể biết được bạn được bao nhiêu điểm nếu trả lời <span class=" btn-success";">đúng</span>, hoặc bạn sẽ được thêm lượt, hoặc bị mất lượt,… Trên màn hình chính sẽ có một số ô chữ gồm nhiều chữ cái chưa được mở, cùng với bảng chữ cái để bạn có thể lựa chọn để đoán trong mỗi lượt. Nếu bạn giải ra ô chữ thì điểm số cao sẽ thuộc về bạn, còn nếu quá một số lượt nhất định, bạn sẽ thua và phải <span class=" btn-info";">chơi lại</span> từ đầu.
+              </p>
+          </div>
+      </div>
+      <div class="right col-sm-8">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <div class="power_controls">
+                        <br />
+                        <br />
+                        <table class="power" cellpadding="10" cellspacing="0">
+                           <div class="slidecontainer">
+                            <input type="range" min="1" max="3" value="1" class="slider" id="myRange" onchange="powerSelected(this.value)">
+                            <p>Giá trị lực: <span id="demo"></span></p>
+                        </div>
+                        <tr>
+                            <div class="btn btn-danger" align="center">SỨC MẠNH</div>
+                        </tr>
+                            <!-- <tr>
+                                <td width="78" align="center" id="pw3" onClick="powerSelected(3);">High</td>
+                            </tr>
+                            <tr>
+                                <td align="center" id="pw2" onClick="powerSelected(2);">Med</td>
+                            </tr>
+                            <tr>
+                                <td align="center" id="pw1" onClick="powerSelected(1);">Low</td>
+                            </tr> -->
+
+                        </table>
+                        <br />
+                        <button type="button" class="btn btn-success" id="spin_button" onClick="startSpin(); return false;">Quay ngay</button>
+                       <!--  <br /><br />
+                        &nbsp;&nbsp;<a href="#" class="btn btn-info" onClick="resetWheel(); return false;">Chơi lại</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                    </div>
+                </td>
+                <td width="438" height="582" class="the_wheel" align="center" valign="center">
+                    <canvas id="canvas" width="434" height="434">
+                        <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+                    </canvas>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+            // Create new wheel object specifying the parameters at creation time.
+            var theWheel = new Winwheel({
+                'outerRadius'     : 212,        // Set outer radius so wheel fits inside the background.
+                'innerRadius'     : 75,         // Make wheel hollow so segments don't go all way to center.
+                'textFontSize'    : 24,         // Set default font size for the segments.
+                'textOrientation' : 'horizontal', // Make text vertial so goes down from the outside of wheel.
+                'textAlignment'   : 'outer',    // Align text to outside of wheel.
+                'numSegments'     : 24,         // Specify number of segments.
+                'segments'        :             // Define segments including colour and text.
+                [                               // font size and test colour overridden on backrupt segments.
+                {'fillStyle' : '#ee1c24', 'text' : '300'},
+                {'fillStyle' : '#3cb878', 'text' : '450'},
+                {'fillStyle' : '#f6989d', 'text' : '600'},
+                {'fillStyle' : '#00aef0', 'text' : '750'},
+                {'fillStyle' : '#f26522', 'text' : '500'},
+                {'fillStyle' : '#000000', 'text' : 'THÊM LƯỢT', 'textFontSize' : 16, 'textFillStyle' : '#ffffff'},
+                {'fillStyle' : '#e70697', 'text' : '3000'},
+                {'fillStyle' : '#fff200', 'text' : '600'},
+                {'fillStyle' : '#f6989d', 'text' : '700'},
+                {'fillStyle' : '#ee1c24', 'text' : '350'},
+                {'fillStyle' : '#3cb878', 'text' : '500'},
+                {'fillStyle' : '#f26522', 'text' : '800'},
+                {'fillStyle' : '#a186be', 'text' : '300'},
+                {'fillStyle' : '#fff200', 'text' : '400'},
+                {'fillStyle' : '#00aef0', 'text' : '650'},
+                {'fillStyle' : '#ee1c24', 'text' : '1000'},
+                {'fillStyle' : '#f6989d', 'text' : '500'},
+                {'fillStyle' : '#f26522', 'text' : '400'},
+                {'fillStyle' : '#3cb878', 'text' : '900'},
+                {'fillStyle' : '#000000', 'text' : 'THÊM LƯỢT', 'textFontSize' : 16, 'textFillStyle' : '#ffffff'},
+                {'fillStyle' : '#a186be', 'text' : '600'},
+                {'fillStyle' : '#fff200', 'text' : '700'},
+                {'fillStyle' : '#00aef0', 'text' : '800'},
+                {'fillStyle' : '#ffffff', 'text' : 'MẤT LƯỢT', 'textFontSize' : 12}
+                ],
+                'animation' :           // Specify the animation to use.
+                {
+                    'type'     : 'spinToStop',
+                    'duration' : 8,     // Duration in seconds.
+                    'spins'    : 3,     // Default number of complete spins.
+                    'callbackFinished' : alertPrize
+                }
+            });
+
+            // Vars used by the code in this page to do power controls.
+            var wheelPower    = 0;
+            var wheelSpinning = false;
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+          }
+
+            // -------------------------------------------------------
+            // Function to handle the onClick on the power buttons.
+            // -------------------------------------------------------
+            function powerSelected(powerLevel)
+            {
+                // Ensure that power can't be changed while wheel is spinning.
+                if (wheelSpinning == false)
+                {
+
+                    // Set wheelPower var used when spin button is clicked.
+                    wheelPower = powerLevel;
+
+                    // Light up the spin button by changing it's source image and adding a clickable class to it.
+                    document.getElementById('spin_button').src = "spin_on.png";
+                    document.getElementById('spin_button').className = "clickable";
+                }
+            }
+
+            // -------------------------------------------------------
+            // Click handler for spin button.
+            // -------------------------------------------------------
+            function startSpin()
+            {
+                // Ensure that spinning can't be clicked again while already running.
+                if (wheelSpinning == false)
+                {
+                    // Based on the power level selected adjust the number of spins for the wheel, the more times is has
+                    // to rotate with the duration of the animation the quicker the wheel spins.
+                    if (wheelPower == 1)
+                    {
+                        theWheel.animation.spins = 3;
+                    }
+                    else if (wheelPower == 2)
+                    {
+                        theWheel.animation.spins = 6;
+                    }
+                    else if (wheelPower == 3)
+                    {
+                        theWheel.animation.spins = 9;
+                    }
+
+                    // Disable the spin button so can't click again while wheel is spinning.
+                    document.getElementById('spin_button').src       = "spin_off.png";
+                    document.getElementById('spin_button').className = "btn btn-success";
+
+                    // Begin the spin animation by calling startAnimation on the wheel object.
+                    theWheel.startAnimation();
+
+                    // Set to true so that power can't be changed and spin button re-enabled during
+                    // the current animation. The user will have to reset before spinning again.
+                    wheelSpinning = true;
+                }else{
+
+                    theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+                    theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+                    theWheel.draw();                // Call draw to render changes to the wheel.
+
+
+                    wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+            }
+        }
+
+            // -------------------------------------------------------
+            // Function for reset button.
+            // -------------------------------------------------------
+            // function resetWheel()
+            // {
+            //     theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+            //     theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+            //     theWheel.draw();                // Call draw to render changes to the wheel.
+
+
+            //     wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+            // }
+
+            // -------------------------------------------------------
+            // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters.
+            // -------------------------------------------------------
+            function alertPrize(indicatedSegment)
+            {
+                // Just alert to the user what happened.
+                // In a real project probably want to do something more interesting than this with the result.
+                if (indicatedSegment.text == 'MẤT LƯỢT')
+                {
+                    alert('Bạn đã quay vào ô mất lượt.');
+                }
+                else if (indicatedSegment.text == 'THÊM LƯỢT')
+                {
+                    alert('Chúc mừng bạn đã nhận thêm lượt quay mới ^^');
+                }
+                else
+                {
+                    alert("Bạn đã quay được " + indicatedSegment.text);
+                }
+            }
+        </script>
+    </body>
+    </html>

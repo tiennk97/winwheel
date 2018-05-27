@@ -1,0 +1,144 @@
+/*
+Description:
+    Contains all the styles for the winning wheel page.
+    
+Verison History:
+    2012-01-28, Douglas McKechie
+    - Created based off earlier version.
+    
+    2015-09-26, Douglas McKechie
+    - Minor updates for the 2.0 winwheel example.
+    */
+
+    body
+    {
+        font-family: arial;
+    }
+
+    /* Sets the background image for the wheel */
+    td.the_wheel
+    {
+        background-image: url(../img/wheel_back.png);
+        background-position: center;
+        background-repeat: none;
+    }
+
+    /* Do some css reset on selected elements */
+    h1, p
+    {
+        margin: 0;
+    }
+
+    div.power_controls
+    {
+        margin-right:70px;
+    }
+
+    div.html5_logo
+    {
+        margin-left:70px;
+    }
+
+    /* Styles for the power selection controls */
+    table.power
+    {
+        background-color: #cccccc;
+        cursor: pointer;
+        border:1px solid #333333;
+    }
+
+    table.power th
+    {
+        background-color: white;
+        cursor: default;
+    }
+
+    td.pw1
+    {
+        background-color: #6fe8f0;
+    }
+
+    td.pw2
+    {
+        background-color: #86ef6f;
+    }
+
+    td.pw3
+    {
+        background-color: #ef6f6f;
+    }
+
+    /* Style applied to the spin button once a power has been selected */
+    .clickable
+    {
+        cursor: pointer;
+    }
+
+    /* Other misc styles */
+    .margin_bottom
+    {
+        margin-bottom: 5px;
+    }
+/*RANGE*/
+.slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+body{
+    background-image: url('../img/bg.png');
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.left p{
+    text-align: justify;
+}
+.left h1{
+    font-size: 30px;
+    width: 100%;
+    height: 60px;
+}
+.content{
+    padding: 15px;
+    border-radius: 3px;
+    background-color: rgb(239, 239, 239,0.3);
+
+}
+span{
+    padding: 3px;
+    border-radius:5px;
+}
+/**/
